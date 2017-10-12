@@ -22,33 +22,31 @@ module.exports = {
 		test.expect(2);
 
 		var ip = "95.23.1.184";
-		var expected = "Logroño";
+		var expected = "ES";
 		var actual = geoip.lookup(ip);
 
 		test.ok(actual, "Should return a non-null value for " + ip);
-		test.equal(actual.city, expected, "UTF8 city name does not match");
-
-		test.done();
-	},
-
-	testMetro: function(test) {
-		test.expect(2);
-
-		var actual = geoip.lookup("23.240.63.68");
-
-		test.equal(actual.city, "Santa Ana");
-		test.equal(actual.metro, 803);
+		test.equal(actual.country, expected, "UTF8 city name does not match");
 
 		test.done();
 	},
 
 	testIPv4MappedIPv6: function (test) {
-		test.expect(2);
+		test.expect(1);
 
 		var actual = geoip.lookup("::ffff:173.185.182.82");
 
-		test.equal(actual.city, "Granbury");
-		test.equal(actual.metro, 623);
+		test.equal(actual.country, "US");
+
+		test.done();
+	},
+
+	testIPv6: function (test) {
+		test.expect(1);
+
+		var actual = geoip.lookup("2a00:23c5:bc81:5800:413d:3b7b:623e:ba02");
+
+		test.equal(actual.country, "GB");
 
 		test.done();
 	}
